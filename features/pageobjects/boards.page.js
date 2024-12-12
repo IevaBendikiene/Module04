@@ -11,13 +11,34 @@ class BoardsPage extends Page {
   get boardTitleInput (){
     return $('//input[@data-testid="create-board-title-input"]')
   }
-  // get visibilityOptions () {
-  //   return $('//div[@data-testid="create-board-select-visibility"]')
-  // }
+
+  get searchInput(){
+    return $('//input[@data-testid="cross-product-search-input-skeleton"]')
+  }
   get finalCreatBoardBtn(){
     return $('//button[@data-testid="create-board-submit-button"]')
   }
+  get boardsLink(){
+    return $('//span[@data-testid="BoardIcon"]')
+  }
+  get workspaceNav(){
+    return $('//button[@data-testid="workspace-switcher"]')
+  }
+  get myWorkspaceLink(){
+    return $('//a[@data-testid="workspace-switcher-popover-tile"]')
+  }
+  get myTrelloBoard(){
+    return $('//a[@title="My Trello board"]')}
 
+  get addListBtn(){
+    return $('//button[@data-testid="list-composer-button"]')
+  }  
+  get listTitleInput(){
+    return $('//textarea[@data-testid="list-name-textarea"]')
+  }
+  get submitNewListBtn(){
+    return $('//button[@data-testid="list-composer-add-list-button"]')
+  }
   async openCreatMenu (){
     await this.createButton.click()
   }
@@ -34,6 +55,22 @@ class BoardsPage extends Page {
     const newTitle = title.toLowerCase().replace(/\s+/g, '')
     const currentUrl = await browser.getUrl()
     return currentUrl.includes(newTitle)
+  }
+  async searchIsSet(title){
+    await this.searchInput.setValue(title)
+  }
+  async openBoard(){
+    await this.workspaceNav.click()
+    await this.myWorkspaceLink.click()
+    await this.myTrelloBoard.click()
+   
+  }
+  async creatListActiveted(){
+    await this.addListBtn.click()
+  }
+  async enterListName(name){
+    await this.listTitleInput.setValue(name)
+    await this.submitNewListBtn.click()
   }
 }
 

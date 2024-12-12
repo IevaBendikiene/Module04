@@ -51,19 +51,19 @@ exports.config = {
     //
     capabilities: [{
         browserName: 'chrome',
-        // 'goog:chromeOptions': {
-        //         args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
-        //     },
-    // }, {
-    //     browserName: 'firefox',
-    //     'moz:firefoxOptions': {
-    //         args: ['-headless'],
-    //     },
-    // }, {
-    //     browserName: 'safari',
-    //     'safari.options': {
-    //             args: [], 
-    //         },
+        'goog:chromeOptions': {
+                args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
+            },
+    }, {
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+            args: ['-headless'],
+        },
+    }, {
+        browserName: 'safari',
+        'safari.options': {
+                args: [], 
+            },
     }],
 
     //

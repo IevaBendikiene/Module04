@@ -30,7 +30,7 @@ Scenario: Create a List
 Given the user is on an existing board
 When the user clicks on the add a list button
 And enters a <title> for the list and clicks add list
-Then the new list should appear on the board
+Then the new list with <title> should appear on the board
 
 Examples:
    | title|

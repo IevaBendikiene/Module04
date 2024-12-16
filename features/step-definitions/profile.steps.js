@@ -19,7 +19,7 @@ When("the user clicks profile icon", async () => {
   await ProfilePage.openProfileMenu()
 });
 
-When('the user clicks the "Profile link" button', async () => {
+When('the user clicks the profile link button', async () => {
   await ProfilePage.navigateToUserProfile()
 });
 Then('user is navigated to profile page', async() => {

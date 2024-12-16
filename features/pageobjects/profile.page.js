@@ -3,7 +3,7 @@ const Page = require("./page");
 
 class ProfilePage extends Page {
   get profileIcon() {
-    return $("//button[@aria-label='Open member menu']");
+    return $("//button[@data-testid='header-member-menu-button']");
   }
 
   get profileLink() {

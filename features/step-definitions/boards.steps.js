@@ -64,7 +64,6 @@ When("the user clicks on the add a list button", async () => {
 
 When(/^enters a (.*) for the list and clicks add list$/, async (title) => {
   await Boards.enterListName(title);
-  // Write code here that turns the phrase above into concrete actions
 });
 Then(/^the new list should appear on the board$/, async () => {
   await Boards.checkListWasCreated();

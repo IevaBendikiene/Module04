@@ -3,15 +3,15 @@ Feature: Trello board
 Scenario: Create a Board
 
 Given the user is logged in and on the main page
-# When the user clicks the create button
-# And chooses create board option
-# And provides a <title> for the board
-# And clicks submit button
-# Then the new board should be created and displayed in the new <title> workspace
+When the user clicks the create button
+And chooses create board option
+And provides a <title> for the board
+And clicks submit button
+Then the new board should be created and displayed in the new <title> workspace
 
-# Examples:
-#    | title|
-#    | Dreams |
+Examples:
+   | title|
+   | Dreams |
 
 # Scenario: Search for a Board
 
@@ -30,7 +30,7 @@ Scenario: Create a List
 Given the user is on an existing board
 When the user clicks on the add a list button
 And enters a <title> for the list and clicks add list
-Then the new list with <title> should appear on the board
+Then the new list should appear on the board
 
 Examples:
    | title|

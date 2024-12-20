@@ -1,3 +1,4 @@
+
 exports.config = {
     //
     // ====================
@@ -54,16 +55,17 @@ exports.config = {
         // 'goog:chromeOptions': {
         //         args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
         //     },
-    // }, {
-    //     browserName: 'firefox',
-    //     'moz:firefoxOptions': {
-    //         args: ['-headless'],
-    //     },
-    // }, {
-    //     browserName: 'safari',
-    //     'safari.options': {
-    //             args: [], 
-    //         },
+    }, {
+        browserName: 'firefox',
+        'moz:firefoxOptions': {
+            args: ['-headless'],
+        },
+    },  {
+        
+        browserName: 'MicrosoftEdge',
+        'ms:edgeOptions': {
+          args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
+        },
     }],
 
     //

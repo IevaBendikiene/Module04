@@ -1,4 +1,4 @@
-Feature: Login to Trello with Google Account
+Feature: Login to Trello webpage
   As a registered Trello user
   I want to log in
 

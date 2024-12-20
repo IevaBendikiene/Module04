@@ -23,7 +23,7 @@ class ProfilePage extends Page {
   async navigateToUserProfile() {
     await this.profileLink.click();
   }
-  async isLoggedIn(username) {
+  async checkItIsProfilePage(username) {
     const usernamePart = username.split("@")[0];
     const currentUrl = await browser.getUrl();
     return currentUrl.includes(usernamePart);

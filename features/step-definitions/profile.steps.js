@@ -23,7 +23,7 @@ When('the user clicks the profile link button', async () => {
   await ProfilePage.navigateToUserProfile()
 });
 Then('user is navigated to profile page', async() => {
-  await ProfilePage.isLoggedIn(user)
+  await ProfilePage.checkItIsProfilePage(user)
 })
 When("the user changes their profile name", async () => {
   await ProfilePage.editProfileName("strawberry1608")

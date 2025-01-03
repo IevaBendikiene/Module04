@@ -57,9 +57,9 @@ exports.config = {
         //     },
     }, {
         browserName: 'firefox',
-        'moz:firefoxOptions': {
-            args: ['-headless'],
-        },
+        // 'moz:firefoxOptions': {
+        //     args: ['-headless'],
+        // },
     },  {
         
         browserName: 'MicrosoftEdge',
@@ -109,7 +109,7 @@ exports.config = {
     connectionRetryTimeout: 120000,
     //
     // Default request retries count
-    connectionRetryCount: 2,
+    connectionRetryCount: 1,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance

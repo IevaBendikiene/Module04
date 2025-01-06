@@ -19,13 +19,6 @@ class ProfilePage extends Page {
     return $("//button[@type='submit']");
   }
 
- 
-  // async checkItIsProfilePage(username) {
-  //   const usernamePart = username.split("@")[0];
-  //   const currentUrl = await browser.getUrl();
-  //   return currentUrl.includes(usernamePart);
-  // }
-
   async editProfileName(newName) {
     await this.profileNameInput.click();
     await this.profileNameInput.setValue(newName);

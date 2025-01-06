@@ -1,5 +1,5 @@
 Feature: user profile
-
+@logout
 Scenario: Edit User Profile
 Given the user is logged into Trello 
 When the user clicks profile icon

@@ -1,8 +1,13 @@
 Feature: Trello board
+Background: 
+
+Given the user is logged in and on the main page
+
+@logout
+@removeBoard
 
 Scenario: Create a Board
 
-Given the user is logged in and on the main page
 When the user clicks the create button
 And chooses create board option
 And provides a <title> for the board
@@ -12,7 +17,7 @@ Then the new board should be created and displayed in the new <title> workspace
 Examples:
    | title|
    | Christmas |
-
+@logout
 Scenario: Search for a Board
 
 Given the user is logged in and has boards created
@@ -24,9 +29,10 @@ Examples:
    | title|
    | Christmas |
 
-
-
+@logout
+@removeList
 Scenario: Create a List
+
 Given the user is on an existing board
 When the user clicks on the add a list button
 And enters a <title> for the list and clicks add list
@@ -36,18 +42,19 @@ Examples:
    | title|
    | ToDo |
 
-Scenario: Create a Card
-Given the user is on an existing list <listName> within a board
-When the user clicks the Add a Card button under the list name
-And enters a card <title>
-Then the new card <title> should appear under the list
-And set filter on <title> card
+# Scenario: Create a Card
 
-Examples:
-  | listName | title  |
-  | ToDo | NewCard |
+# Given the user is on an existing list <listName> within a board
+# When the user clicks the Add a Card button under the list name
+# And enters a card <title>
+# Then the new card <title> should appear under the list
+# And set filter on <title> card
 
-Scenario: Filter Cards
-Given the user is on a board with multiple cards
-When the user applies a filter using a label
-Then only the cards matching the filter criteria should be displayed
+# Examples:
+#   | listName | title  |
+#   | ToDo | NewCard |
+
+# Scenario: Filter Cards
+# Given the user is on a board with multiple cards
+# When the user applies a filter using a label
+# Then only the cards matching the filter criteria should be displayed

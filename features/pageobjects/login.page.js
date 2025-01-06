@@ -1,9 +1,7 @@
 const { $, browser } = require("@wdio/globals");
 const Page = require("./page");
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
+
 const login =
   "https://id.atlassian.com/login?application=trello&continue=https%3A%2F%2Ftrello.com%2Fauth%2Fatlassian%2Fcallback%3Fdisplay%3DeyJ2ZXJpZmljYXRpb25TdHJhdGVneSI6InNvZnQifQ%253D%253D&display=eyJ2ZXJpZmljYXRpb25TdHJhdGVneSI6InNvZnQifQ%3D%3D";
 
@@ -22,6 +20,12 @@ class LoginPage extends Page {
  get loginBtn(){
     return $("#login-submit")
  }
+ get logoutBtn(){
+  return $('//button[@data-testid="account-menu-logout"]')
+ }
+ get logoutSubmitBtn(){
+  return $('button#logout-submit')
+ }
   async login(username, password) {
     await this.userInput.waitForDisplayed({ timeout: 10000, timeoutMsg: "Username field not visible" });
     await this.userInput.setValue(username) 
@@ -35,7 +39,7 @@ class LoginPage extends Page {
     await this.loginBtn.click()
   }
   
-
+ 
   open() {
     return super.open(login);
   }

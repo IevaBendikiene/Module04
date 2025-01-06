@@ -2,9 +2,8 @@ const { Given, When, Then } = require("@wdio/cucumber-framework");
 const LoginPage = require("../pageobjects/login.page");
 const Boards = require("../pageobjects/boards.page");
 const assert = require("assert");
-const user = "strawberry0816@gmail.com";
-const password = "demo123!";
-
+const user = process.env.USER;
+const password = process.env.PASSWORD;
 // Scenario: Create a Board
 Given(/^the user is logged in and on the main page$/, async () => {
   await LoginPage.open();
@@ -77,9 +76,7 @@ Then(/^the list of (.*) matching boards should be displayed$/, async (title) => 
 // Scenario Create a List
 
 Given("the user is on an existing board", async () => {
-  await Boards.workspaceNav.click();
-  await Boards.myWorkspaceLink.click();
-  await Boards.myTrelloBoard.click();
+await Boards.open()
 });
 
 When("the user clicks on the add a list button", async () => {
@@ -92,13 +89,14 @@ When(/^enters a (.*) for the list and clicks add list$/, async (title) => {
 });
 
 Then(/^the new list (.*) should appear on the board$/, async (title) => {
-  const listElement = await Boards.getlistElement(title);
-  // await browser.waitUntil(async () => await listElement.isDisplayed(), {
-  //     timeout: 15000,
-  //     timeoutMsg: `Expected list with name ${title} to be displayed, but it wasn't.`,
-  // });
-  // const isDisplayed = await listElement.isDisplayed();
-  // assert.strictEqual(isDisplayed, true, `Expected list with name ${title} to be displayed, but it wasn't.`);
+  // await browser.pause(60000)
+  const listElement = await Boards.listElement;
+  await browser.waitUntil(async () => await listElement.isDisplayed(), {
+      timeout: 15000,
+      timeoutMsg: `Expected list with name ${title} to be displayed, but it wasn't.`,
+  } );
+  const isDisplayed = await listElement.isDisplayed();
+  assert.strictEqual(isDisplayed, true, `Expected list with name ${title} to be displayed, but it wasn't.`);
 });
 
 // Scenario Create Card

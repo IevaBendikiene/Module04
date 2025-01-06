@@ -1,15 +1,15 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
 const LoginPage = require("../pageobjects/login.page");
 const assert = require("assert");
-
-
+const username = process.env.USER
+const password = process.env.PASSWORD
 Given(/^the user is on the Trello login page$/, async () => {
   await LoginPage.open();
 });
 
 When(
-  /^the user logs in with (.*) and (.*)$/,
-  async (username, password) => {
+  /^the user logs in with username and password$/,
+  async () => {
     await LoginPage.login(username, password);
   }
 );

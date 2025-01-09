@@ -36,6 +36,9 @@ class BoardsPage extends Page {
   get myTrelloBoard() {
     return $('//a[@title="My Trello Board"]');
   }
+  getTrelloBoard(name) {
+    return $(`//a[@title="${name}"]`);
+  }
   get addListBtn() {
     return $('//button[@data-testid="list-composer-button"]');
   }
@@ -116,14 +119,20 @@ class BoardsPage extends Page {
   get confirmcloseBoardBtn() {
     return $('//button[@data-testid="popover-close-board-confirm"]');
   }
+  get deleteBordBtn(){
+    return $('//button[@data-testid="close-board-delete-board-button"]')
+  }
+  get confirmDeleteBoardBtn(){
+    return $('//button[@data-testid="close-board-delete-board-confirm-button"]')
+  }
   async apllyFilterForcards() {
     await this.filterBtn.click();
     const popover = this.filterPopover;
     // await expect(popover).toBeDisplayed()
     await this.checkboxEl.click();
   }
-  async open() {
-   
+
+  async open() { 
     await this.workspaceNav.waitForClickable({ timeout: 5000 });
     await this.workspaceNav.click();
     await this.myWorkspaceLink.waitForClickable({ timeout: 5000 });

@@ -4,7 +4,7 @@ Background:
 Given the user is logged in and on the main page
 
 @logout
-@removeBoard
+# @removeBoard
 
 Scenario: Create a Board
 
@@ -29,8 +29,8 @@ Examples:
    | title|
    | Christmas |
 
-@logout
-@removeList
+# @logout
+# @removeList
 Scenario: Create a List
 
 Given the user is on an existing board
@@ -41,20 +41,20 @@ Then the new list <title> list should appear on the board
 Examples:
    | title|
    | ToDo |
+# @logout
+Scenario: Create a Card
 
-# Scenario: Create a Card
+Given the user is on an existing list <listName> within a board
+When the user clicks the Add a Card button under the list name
+And enters a card <title>
+Then the new card <title> should appear under the list
+And set filter on <title> card
 
-# Given the user is on an existing list <listName> within a board
-# When the user clicks the Add a Card button under the list name
-# And enters a card <title>
-# Then the new card <title> should appear under the list
-# And set filter on <title> card
-
-# Examples:
-#   | listName | title  |
-#   | ToDo | NewCard |
-
-# Scenario: Filter Cards
-# Given the user is on a board with multiple cards
-# When the user applies a filter using a label
-# Then only the cards matching the filter criteria should be displayed
+Examples:
+  | listName | title  |
+  | ToDo | NewCard |
+# @logout
+Scenario: Filter Cards
+Given the user is on a board with multiple cards
+When the user applies a filter using a label
+Then only the cards matching the filter criteria should be displayed

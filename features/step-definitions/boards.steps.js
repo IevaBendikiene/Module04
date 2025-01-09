@@ -60,23 +60,26 @@ When(/^the user enters a board (.*) in the search bar$/, async (title) => {
 When(/^presses the View all results link$/, async () => {
   await Boards.viewAllResultsLink.click();
 });
-Then(/^the list of (.*) matching boards should be displayed$/, async (title) => {
-  const searchResults = await Boards.allSearchResults
-  for (const div of searchResults) {
-    const span = await div.$(`span=${title}`); 
-    const exists = await span.isExisting();
-    assert.strictEqual(
-      exists,
-      true,
-      `Expected <div role="presentation"> to contain a <span> with text ${title}.`
-    );
+Then(
+  /^the list of (.*) matching boards should be displayed$/,
+  async (title) => {
+    const searchResults = await Boards.allSearchResults;
+    for (const div of searchResults) {
+      const span = await div.$(`span=${title}`);
+      const exists = await span.isExisting();
+      assert.strictEqual(
+        exists,
+        true,
+        `Expected <div role="presentation"> to contain a <span> with text ${title}.`
+      );
+    }
   }
-})
+);
 
 // Scenario Create a List
 
 Given("the user is on an existing board", async () => {
-await Boards.open()
+  await Boards.open();
 });
 
 When("the user clicks on the add a list button", async () => {
@@ -92,11 +95,15 @@ Then(/^the new list (.*) should appear on the board$/, async (title) => {
   // await browser.pause(60000)
   const listElement = await Boards.listElement;
   await browser.waitUntil(async () => await listElement.isDisplayed(), {
-      timeout: 15000,
-      timeoutMsg: `Expected list with name ${title} to be displayed, but it wasn't.`,
-  } );
+    timeout: 15000,
+    timeoutMsg: `Expected list with name ${title} to be displayed, but it wasn't.`,
+  });
   const isDisplayed = await listElement.isDisplayed();
-  assert.strictEqual(isDisplayed, true, `Expected list with name ${title} to be displayed, but it wasn't.`);
+  assert.strictEqual(
+    isDisplayed,
+    true,
+    `Expected list with name ${title} to be displayed, but it wasn't.`
+  );
 });
 
 // Scenario Create Card

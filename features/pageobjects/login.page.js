@@ -10,7 +10,6 @@ class LoginPage extends Page {
   get userInput() {
     return $("#username");
   }
- 
   get continuteBtn(){
     return $("#login-submit")
   }

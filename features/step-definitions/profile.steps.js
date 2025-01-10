@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
-const ProfilePage = require("../pageobjects/profile.page");
-const LoginPage = require("../pageobjects/login.page");
+const ProfilePage = require("../../src/pageobjects/pages/profile.page");
+const LoginPage = require("../../src/pageobjects/pages/login.page");
 const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
@@ -43,8 +43,8 @@ When("the user changes their profile name", async () => {
 Then(
   "the updated information should be saved and displayed in the profile",
   async () => {
-    const updatedName = await ProfilePage.getProfileName();
-    const expectedName = "strawberry1608";
+    const updatedName = await ProfilePage.usernameHeader.getText();
+    const expectedName = "@strawberry1608";
     assert.strictEqual(
       updatedName,
       expectedName,

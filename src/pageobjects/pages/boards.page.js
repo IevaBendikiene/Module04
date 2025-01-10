@@ -92,6 +92,9 @@ class BoardsPage extends Page {
       '//label[@data-testid="clickable-checkbox" and .//span[@data-color="green" and @data-testid="card-label"]]'
     );
   }
+  get clearFilterBtn(){
+    return $('//button[@data-testid="filter-popover-button-x"]')
+  }
   get trelloCard() {
     return $('//div[@data-testid="trello-card"]');
   }
@@ -129,16 +132,17 @@ class BoardsPage extends Page {
     await this.filterBtn.click();
     const popover = this.filterPopover;
     // await expect(popover).toBeDisplayed()
+  
     await this.checkboxEl.click();
   }
 
-  async open() { 
-    await this.workspaceNav.waitForClickable({ timeout: 5000 });
+  async open(name) { 
+    await this.workspaceNav.waitForClickable({ timeout: 10000 });
     await this.workspaceNav.click();
-    await this.myWorkspaceLink.waitForClickable({ timeout: 5000 });
+    await this.myWorkspaceLink.waitForClickable({ timeout: 10000 });
     await this.myWorkspaceLink.click();
-    await this.myTrelloBoard.waitForClickable({ timeout: 5000 });
-    await this.myTrelloBoard.click();
+    await this.getTrelloBoard(name).waitForDisplayed({ timeout: 5000 });
+    await this.getTrelloBoard(name).click();
   }
 }
 

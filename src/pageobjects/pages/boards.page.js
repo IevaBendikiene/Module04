@@ -71,6 +71,9 @@ class BoardsPage extends Page {
   getCardLink(name) {
     return $(`//a[@data-testid="card-name" and text()="${name}"]`);
   }
+  get editCardBtn(){
+    return $('//button[data-testid="quick-card-editor-button"]')
+  }
   get editLabelBtn() {
     return $('//button[@data-testid="card-back-labels-button"]');
   }

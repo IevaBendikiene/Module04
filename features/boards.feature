@@ -3,7 +3,6 @@ Background:
 Given the user is logged in and on the main page
 
 @logout
-
 Scenario: Create a Board
 
 When the user clicks the create button
@@ -29,7 +28,6 @@ Examples:
    | Christmas |
 
 @logout
-
 Scenario: Create a List
 
 Given the user is on an existing <name> board
@@ -42,10 +40,10 @@ Examples:
    | ToDo |  Christmas    | 
 
 @logout
-
 Scenario Outline: Create a Card
 
-And the user is on an existing list <listName> within a <name> board
+When the user is on a <name> board
+And on existing list <listName> 
 When the user clicks the Add a Card button under the list name
 And enters a card <title>
 Then the new card <title> should appear under the list
@@ -55,6 +53,7 @@ Examples:
   | listName | title   | name |
   | ToDo     | NewCard | Christmas |
 
+@removeBoard
 @logout
 Scenario: Filter Cards
 Given the user is on a <title> board with multiple cards

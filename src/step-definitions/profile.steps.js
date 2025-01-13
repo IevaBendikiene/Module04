@@ -1,6 +1,6 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
-const ProfilePage = require("../../src/pageobjects/pages/profile.page");
-const LoginPage = require("../../src/pageobjects/pages/login.page");
+const ProfilePage = require("../pageobjects/pages/profile.page");
+const LoginPage = require("../pageobjects/pages/login.page");
 const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
@@ -22,13 +22,12 @@ When("the user clicks the profile link button", async () => {
   await ProfilePage.profileLink.click();
 });
 When("user is navigated to profile page", async () => {
- 
   const headerElement = await ProfilePage.profileHeader;
 
-  await browser.waitUntil(async() => await headerElement.isDisplayed(), {
+  await browser.waitUntil(async () => await headerElement.isDisplayed(), {
     timeout: 15000,
-    timeoutMsg: `Expected header "Manage your personal information" to be displayed, but it wasn't.`
-  })
+    timeoutMsg: `Expected header "Manage your personal information" to be displayed, but it wasn't.`,
+  });
   const isDisplayed = await headerElement.isDisplayed();
   assert.strictEqual(
     isDisplayed,

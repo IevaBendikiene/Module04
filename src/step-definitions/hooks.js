@@ -1,7 +1,7 @@
 const { After } = require("@wdio/cucumber-framework");
-const Boards = require("../../src/pageobjects/pages/boards.page");
-const LoginPage = require("../../src/pageobjects/pages/login.page");
-const ProfilePage = require("../../src/pageobjects/pages/profile.page");
+const Boards = require("../pageobjects/pages/boards.page");
+const LoginPage = require("../pageobjects/pages/login.page");
+const ProfilePage = require("../pageobjects/pages/profile.page");
 
 const logout = async () => {
   await ProfilePage.profileIcon.click();
@@ -14,7 +14,7 @@ const logout = async () => {
   await logoutSubmitButton.click();
 };
 After({ name: "logout user", tags: "@logout" }, async () => {
-  await logout()
+  await logout();
 });
 
 After({ name: "removing list", tags: "@removeList" }, async () => {
@@ -27,13 +27,10 @@ After({ name: "removing list", tags: "@removeList" }, async () => {
 });
 
 After({ name: "removing board", tags: "@removeBoard" }, async () => {
-  const title = this.parameters?.title || "Default";
-  const createdCards = await Boards.getCreatedCards(title);
-  for (let card of createdCards) {
-    await card.click();
-    await Boards.boardMenuBtn.click();
-    await Boards.closeBoardBtn.click();
-    await Boards.confirmcloseBoardBtn.click();
-  }
+  await Boards.boardMenuBtn.waitForDisplayed({ timeout: 2000 });
+  await Boards.boardMenuBtn.click();
+  await Boards.closeBoardBtn.click();
+  await Boards.confirmcloseBoardBtn.click();
+  await Boards.deleteBordBtn.click();
+  await Boards.confirmDeleteBoardBtn.click();
 });
-

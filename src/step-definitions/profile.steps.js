@@ -5,7 +5,7 @@ const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
 
-Given("the user is logged into Trello", async () => {
+Given(/^the user is logged into Trello$/, async () => {
   await LoginPage.open();
   await LoginPage.login(user, password);
   const currentUrl = await browser.getUrl();

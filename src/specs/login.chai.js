@@ -1,6 +1,6 @@
 const { assert } = require("chai"); // Import Chai assert interface
-const LoginPage = require("../src/pageobjects/pages/login.page");
-const { logout } = require("../src/hooks");
+const LoginPage = require("../pageobjects/pages/login.page");
+const { logout } = require("../hooks");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
 const badPassword = process.env.PASSWORD_B;
@@ -11,7 +11,7 @@ describe("Login to Trello", () => {
   });
   it("should not log in with invalid credentials", async () => {
     await LoginPage.login(user, badPassword);
-    await browser.pause(2000)
+    await browser.pause(2000);
     const errorMessage = await LoginPage.loginErrorMessage.getText();
 
     assert.include(
@@ -21,7 +21,7 @@ describe("Login to Trello", () => {
     );
   });
 
-  it("should login with valid credentials", async () => {
+  it.only("should login with valid credentials", async () => {
     await LoginPage.login(user, password);
     await browser.waitUntil(
       async () => {

@@ -1,8 +1,8 @@
-const ProfilePage = require("../src/pageobjects/pages/profile.page");
-const LoginPage = require("../src/pageobjects/pages/login.page");
+const ProfilePage = require("../pageobjects/pages/profile.page");
+const LoginPage = require("../pageobjects/pages/login.page");
 const { should } = require("chai");
 should();
-const { logout } = require("../src/hooks");
+const { logout } = require("../hooks");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
 const badNewName = "testName";
@@ -14,11 +14,9 @@ describe("Change profile", () => {
     await LoginPage.login(user, password);
   });
   afterEach(async () => {
-      await logout(); // Perform logout after each test
-    });
+    await logout(); // Perform logout after each test
+  });
   it("should login with valid credentials", async () => {
-    
-
     await browser.waitUntil(
       async () => {
         const curentUrl = await browser.getUrl();
@@ -86,10 +84,17 @@ describe("Change profile", () => {
       "Profile",
       `Expected URL to contain 'Profile', but got: ${currentTitle}`
     );
-
     await ProfilePage.editProfileName(goodNewName);
-    // await browser.pause(2000)
-
+    await browser.waitUntil(
+      async () => {
+        const updatedName = await ProfilePage.usernameHeader.getText();
+        return updatedName.includes(goodNewName);
+      },
+      {
+        timeout: 5000,
+        timeoutMsg: `Expected the username header to include "${goodNewName}", but it did not after 5 seconds.`,
+      }
+    );
     const updatedName = await ProfilePage.usernameHeader.getText();
     updatedName.should.include(
       goodNewName,

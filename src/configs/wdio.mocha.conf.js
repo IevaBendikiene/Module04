@@ -1,3 +1,10 @@
+// const browserName = process.argv[4];
+// const supportedBrowsers = ["chrome", "firefox", "edge"];
+// if (!supportedBrowsers.includes(browserName)) {
+//   console.warn(`Unsupported browser '${browserName}'. Defaulting to Chrome.`);
+// }
+// console.log(process.argv)
+
 exports.config = {
   //
   // ====================
@@ -20,7 +27,7 @@ exports.config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: ["./features/**/boards.feature"],
+  specs: ["../specs/**/login.chai.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -52,22 +59,15 @@ exports.config = {
       browserName: process.env.BROWSER,
       "goog:chromeOptions": { args: ["--disable-gpu"] },
       "ms:edgeOptions": { args: ["--headless", "--disable-gpu"] },
-    //   "moz:firefoxOptions": { args: ["-headless"] },
-
-      // 'goog:chromeOptions': {
-      //         args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
-      //     },
-      // }, {
-      //     browserName: 'firefox',
-      //     // 'moz:firefoxOptions': {
-      //     //     args: ['-headless'],
-      //     // },
-      // },  {
-
-      //     browserName: 'MicrosoftEdge',
-      //     'ms:edgeOptions': {
-      //       args: ['--headless', '--disable-gpu', '--window-size=1920,1080']
-      //     },
+      // browserName: browserName || "chrome", // Default to Chrome if no argument is passed
+    //   "goog:chromeOptions":
+    //     browserName === "chrome"
+    //       ? { args: ["--headless", "--disable-gpu"] }
+    //       : {},
+    //   "ms:edgeOptions":
+    //     browserName === "edge" ? { args: ["--headless", "--disable-gpu"] } : {},
+    //   "moz:firefoxOptions":
+    //     browserName === "firefox" ? { args: ["-headless"] } : {},
     },
   ],
 
@@ -112,21 +112,21 @@ exports.config = {
   connectionRetryTimeout: 120000,
   //
   // Default request retries count
-  connectionRetryCount: 0,
+  connectionRetryCount: 3,
   //
   // Test runner services
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  // services: [],
-  //
+  services: ["visual"],
+
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
   // see also: https://webdriver.io/docs/frameworks
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: "cucumber",
+  framework: "mocha",
 
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -143,33 +143,12 @@ exports.config = {
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: ["spec"],
 
-  // If you are using Cucumber you need to specify the location of your step definitions.
-  cucumberOpts: {
-    // <string[]> (file/dir) require files before executing features
-    require: ["./src/step-definitions/*.js"],
-    // <boolean> show full backtrace for errors
-    backtrace: false,
-    // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
-    requireModule: [],
-    // <boolean> invoke formatters without executing steps
-    dryRun: false,
-    // <boolean> abort the run on first failure
-    failFast: false,
-    // <string[]> Only execute the scenarios with name matching the expression (repeatable).
-    name: [],
-    // <boolean> hide step definition snippets for pending steps
-    snippets: true,
-    // <boolean> hide source uris
-    source: true,
-    // <boolean> fail if there are any undefined or pending steps
-    strict: false,
-    // <string> (expression) only execute the features or scenarios with tags matching the expression
-    tagExpression: "",
-    // <number> timeout for step definitions
+  // Options to be passed to Mocha.
+  // See the full list at http://mochajs.org/
+  mochaOpts: {
+    ui: "bdd",
     timeout: 60000,
-    // <boolean> Enable this config to treat undefined definitions as warnings.
-    ignoreUndefinedDefinitions: false,
-    retry: 0,
+    retry: 2,
   },
 
   //
@@ -234,65 +213,47 @@ exports.config = {
   // beforeCommand: function (commandName, args) {
   // },
   /**
-   * Cucumber Hooks
-   *
-   * Runs before a Cucumber Feature.
-   * @param {string}                   uri      path to feature file
-   * @param {GherkinDocument.IFeature} feature  Cucumber feature object
+   * Hook that gets executed before the suite starts
+   * @param {object} suite suite details
    */
-  // beforeFeature: function (uri, feature) {
+  // beforeSuite: function (suite) {
   // },
   /**
-   *
-   * Runs before a Cucumber Scenario.
-   * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
-   * @param {object}                 context  Cucumber World object
+   * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  // beforeScenario: function (world, context) {
+  // beforeTest: function (test, context) {
   // },
   /**
-   *
-   * Runs before a Cucumber Step.
-   * @param {Pickle.IPickleStep} step     step data
-   * @param {IPickle}            scenario scenario pickle
-   * @param {object}             context  Cucumber World object
+   * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
+   * beforeEach in Mocha)
    */
-  // beforeStep: function (step, scenario, context) {
+  // beforeHook: function (test, context, hookName) {
   // },
   /**
-   *
-   * Runs after a Cucumber Step.
-   * @param {Pickle.IPickleStep} step             step data
-   * @param {IPickle}            scenario         scenario pickle
-   * @param {object}             result           results object containing scenario results
-   * @param {boolean}            result.passed    true if scenario has passed
-   * @param {string}             result.error     error stack if scenario failed
-   * @param {number}             result.duration  duration of scenario in milliseconds
-   * @param {object}             context          Cucumber World object
+   * Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
+   * afterEach in Mocha)
    */
-  // afterStep: function (step, scenario, result, context) {
+  // afterHook: function (test, context, { error, result, duration, passed, retries }, hookName) {
   // },
   /**
-   *
-   * Runs after a Cucumber Scenario.
-   * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
-   * @param {object}                 result           results object containing scenario results
-   * @param {boolean}                result.passed    true if scenario has passed
-   * @param {string}                 result.error     error stack if scenario failed
-   * @param {number}                 result.duration  duration of scenario in milliseconds
-   * @param {object}                 context          Cucumber World object
+   * Function to be executed after a test (in Mocha/Jasmine only)
+   * @param {object}  test             test object
+   * @param {object}  context          scope object the test was executed with
+   * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
+   * @param {*}       result.result    return object of test function
+   * @param {number}  result.duration  duration of test
+   * @param {boolean} result.passed    true if test has passed, otherwise false
+   * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  // afterScenario: function (world, result, context) {
-  // },
-  /**
-   *
-   * Runs after a Cucumber Feature.
-   * @param {string}                   uri      path to feature file
-   * @param {GherkinDocument.IFeature} feature  Cucumber feature object
-   */
-  // afterFeature: function (uri, feature) {
+  // afterTest: function(test, context, { error, result, duration, passed, retries }) {
   // },
 
+  /**
+   * Hook that gets executed after the suite has ended
+   * @param {object} suite suite details
+   */
+  // afterSuite: function (suite) {
+  // },
   /**
    * Runs after a WebdriverIO command gets executed
    * @param {string} commandName hook command name

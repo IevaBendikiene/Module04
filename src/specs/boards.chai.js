@@ -1,7 +1,7 @@
 const { expect } = require("chai"); // Import Chai
-const Boards = require("../src/pageobjects/pages/boards.page");
-const LoginPage = require("../src/pageobjects/pages/login.page");
-const { logout, removeList, removeBoard } = require("../src/hooks");
+const Boards = require("../pageobjects/pages/boards.page");
+const LoginPage = require("../pageobjects/pages/login.page");
+const { logout, removeList, removeBoard } = require("../hooks");
 
 const user = process.env.USER;
 const password = process.env.PASSWORD;
@@ -46,14 +46,14 @@ describe("Check boards page features are working correctly", () => {
     const newTitle = title.toLowerCase().replace(/\s+/g, "");
     await browser.waitUntil(
       async () => {
-          const currentUrl = await browser.getUrl();
-          return currentUrl.includes(newTitle);
+        const currentUrl = await browser.getUrl();
+        return currentUrl.includes(newTitle);
       },
       {
-          timeout: 15000, // Adjust timeout if necessary
-          timeoutMsg: `Expected URL to include "${newTitle}", but it didn't after 15 seconds.`,
+        timeout: 15000, // Adjust timeout if necessary
+        timeoutMsg: `Expected URL to include "${newTitle}", but it didn't after 15 seconds.`,
       }
-  );
+    );
     const currentUrl = await browser.getUrl();
     expect(currentUrl).to.include(
       newTitle,

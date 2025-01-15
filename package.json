@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio-mocha": "wdio run wdio.mocha.conf.js",
-    "wdio-cucumber": "wdio run wdio.cucumber.conf.js"
+    "wdio-mocha": "wdio run src/configs/wdio.mocha.conf.js",
+    "wdio-cucumber": "wdio run src/configs/wdio.cucumber.conf.js"
 
   },
   "keywords": [],

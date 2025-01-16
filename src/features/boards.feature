@@ -54,6 +54,7 @@ Examples:
   | ToDo     | NewCard | Christmas |
 
 @removeBoard
+
 @logout
 Scenario: Filter Cards
 Given the user is on a <title> board with multiple cards

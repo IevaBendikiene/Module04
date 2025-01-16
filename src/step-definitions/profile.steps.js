@@ -1,9 +1,12 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
 const ProfilePage = require("../pageobjects/pages/profile.page");
 const LoginPage = require("../pageobjects/pages/login.page");
+const HomePage =require("../pageobjects/pages/home.page")
 const assert = require("assert");
+
 const user = process.env.USER;
 const password = process.env.PASSWORD;
+const newName = "2025test"
 
 Given(/^the user is logged into Trello$/, async () => {
   await LoginPage.open();
@@ -16,13 +19,13 @@ Given(/^the user is logged into Trello$/, async () => {
 });
 
 When("the user clicks profile icon", async () => {
-  await ProfilePage.profileIcon.click();
+  await HomePage.header.profileIcon.click();
 });
 When("the user clicks the profile link button", async () => {
-  await ProfilePage.profileLink.click();
+  await HomePage.memberMenu.profileLink.click();
 });
 When("user is navigated to profile page", async () => {
-  const headerElement = await ProfilePage.profileHeader;
+  const headerElement = await ProfilePage.profileForm.profileHeader;
 
   await browser.waitUntil(async () => await headerElement.isDisplayed(), {
     timeout: 15000,
@@ -36,14 +39,14 @@ When("user is navigated to profile page", async () => {
   );
 });
 When("the user changes their profile name", async () => {
-  await ProfilePage.editProfileName("strawberry1608");
+  await ProfilePage.editProfileName(newName);
 });
 
 Then(
   "the updated information should be saved and displayed in the profile",
   async () => {
     const updatedName = await ProfilePage.usernameHeader.getText();
-    const expectedName = "@strawberry1608";
+    const expectedName = `@${newName}`;
     assert.strictEqual(
       updatedName,
       expectedName,

@@ -41,7 +41,6 @@ When("user is navigated to profile page", async () => {
 When("the user changes their profile name", async () => {
   await ProfilePage.editProfileName(newName);
 });
-
 Then(
   "the updated information should be saved and displayed in the profile",
   async () => {

@@ -142,10 +142,10 @@ Then(/^the new card (.*) should appear under the list$/, async (title) => {
   );
 });
 When(/^set filter on (.*) card$/, async (title) => {
-  // await Boards.list.getCardLink(title).waitForClickable({
-  //   timeout: 5000,
-  //   timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
-  // });
+  await Boards.list.getCardLink(title).waitForClickable({
+    timeout: 5000,
+    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
+  });
   await Boards.list.getCardLink(title).click();
   await Boards.editCardModal.editLabelBtn.waitForDisplayed({
     timeout: 10000,

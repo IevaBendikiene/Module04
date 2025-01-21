@@ -1,11 +1,8 @@
 Feature: Trello board
 Background: 
-
 Given the user is logged in and on the main page
 
 @logout
-# @removeBoard
-
 Scenario: Create a Board
 
 When the user clicks the create button
@@ -17,6 +14,7 @@ Then the new board should be created and displayed in the new <title> workspace
 Examples:
    | title|
    | Christmas |
+
 @logout
 Scenario: Search for a Board
 
@@ -29,32 +27,39 @@ Examples:
    | title|
    | Christmas |
 
-# @logout
-# @removeList
+@logout
 Scenario: Create a List
 
-Given the user is on an existing board
+Given the user is on an existing <name> board
 When the user clicks on the add a list button
 And enters a <title> for the list and clicks add list
 Then the new list <title> list should appear on the board
 
 Examples:
-   | title|
-   | ToDo |
-# @logout
-Scenario: Create a Card
+   | title| name |
+   | ToDo |  Christmas    | 
 
-Given the user is on an existing list <listName> within a board
+@logout
+Scenario Outline: Create a Card
+
+When the user is on a <name> board
+And on existing list <listName> 
 When the user clicks the Add a Card button under the list name
 And enters a card <title>
 Then the new card <title> should appear under the list
 And set filter on <title> card
 
 Examples:
-  | listName | title  |
-  | ToDo | NewCard |
-# @logout
+  | listName | title   | name |
+  | ToDo     | NewCard | Christmas |
+
+@removeBoard
+@logout
 Scenario: Filter Cards
-Given the user is on a board with multiple cards
+Given the user is on a <title> board with multiple cards
 When the user applies a filter using a label
 Then only the cards matching the filter criteria should be displayed
+
+Examples:
+   | title|
+   | Christmas |

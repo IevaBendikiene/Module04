@@ -1,11 +1,11 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
-const ProfilePage = require("../pageobjects/profile.page");
-const LoginPage = require("../pageobjects/login.page");
+const ProfilePage = require("../pageobjects/pages/profile.page");
+const LoginPage = require("../pageobjects/pages/login.page");
 const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
 
-Given("the user is logged into Trello", async () => {
+Given(/^the user is logged into Trello$/, async () => {
   await LoginPage.open();
   await LoginPage.login(user, password);
   const currentUrl = await browser.getUrl();
@@ -22,13 +22,12 @@ When("the user clicks the profile link button", async () => {
   await ProfilePage.profileLink.click();
 });
 When("user is navigated to profile page", async () => {
- 
   const headerElement = await ProfilePage.profileHeader;
 
-  await browser.waitUntil(async() => await headerElement.isDisplayed(), {
+  await browser.waitUntil(async () => await headerElement.isDisplayed(), {
     timeout: 15000,
-    timeoutMsg: `Expected header "Manage your personal information" to be displayed, but it wasn't.`
-  })
+    timeoutMsg: `Expected header "Manage your personal information" to be displayed, but it wasn't.`,
+  });
   const isDisplayed = await headerElement.isDisplayed();
   assert.strictEqual(
     isDisplayed,
@@ -43,8 +42,8 @@ When("the user changes their profile name", async () => {
 Then(
   "the updated information should be saved and displayed in the profile",
   async () => {
-    const updatedName = await ProfilePage.getProfileName();
-    const expectedName = "strawberry1608";
+    const updatedName = await ProfilePage.usernameHeader.getText();
+    const expectedName = "@strawberry1608";
     assert.strictEqual(
       updatedName,
       expectedName,

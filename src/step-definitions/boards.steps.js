@@ -1,9 +1,10 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
-const LoginPage = require("../pageobjects/login.page");
-const Boards = require("../pageobjects/boards.page");
+const LoginPage = require("../pageobjects/pages/login.page");
+const Boards = require("../pageobjects/pages/boards.page");
 const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
+
 // Scenario: Create a Board
 Given(/^the user is logged in and on the main page$/, async () => {
   await LoginPage.open();
@@ -54,6 +55,7 @@ Given(/^the user is logged in and has boards created$/, async () => {
 });
 
 When(/^the user enters a board (.*) in the search bar$/, async (title) => {
+  await Boards.searchInput.waitForClickable(2000);
   await Boards.searchInput.click();
   await Boards.searchInput.setValue(title);
 });
@@ -78,8 +80,8 @@ Then(
 
 // Scenario Create a List
 
-Given("the user is on an existing board", async () => {
-  await Boards.open();
+Given(/^the user is on an existing (.*) board$/, async (name) => {
+  await Boards.open(name);
 });
 
 When("the user clicks on the add a list button", async () => {
@@ -96,24 +98,29 @@ Then(/^the new list (.*) should appear on the board$/, async (title) => {
   const listElement = await Boards.listElement;
   await browser.waitUntil(async () => await listElement.isDisplayed(), {
     timeout: 15000,
-    timeoutMsg: `Expected list with name ${title} to be displayed, but it wasn't.`,
+    timeoutMsg: `Expected list to be displayed, but it wasn't.`,
   });
   const isDisplayed = await listElement.isDisplayed();
   assert.strictEqual(
     isDisplayed,
     true,
-    `Expected list with name ${title} to be displayed, but it wasn't.`
+    `Expected list  to be displayed, but it wasn't.`
   );
 });
 
 // Scenario Create Card
 
-Given(
-  /^the user is on an existing list (.*) within a board$/,
-  async (listName) => {
-    await Boards.getlistElement(listName).click();
-  }
-);
+When(/^the user is on a (.*) board$/, async (name) => {
+  await browser.pause(3000);
+  await Boards.open(name);
+});
+When(/^on existing list (.*)$/, async (listName) => {
+  const listElement = await Boards.getlistElement(listName);
+  await browser.waitUntil(async () => await listElement.isDisplayed(), {
+    timeout: 15000,
+    timeoutMsg: `Expected list to be displayed, but it wasn't.`,
+  });
+});
 When(
   /^the user clicks the Add a Card button under the list name$/,
   async () => {
@@ -134,18 +141,23 @@ Then(/^the new card (.*) should appear under the list$/, async (title) => {
   );
 });
 When(/^set filter on (.*) card$/, async (title) => {
+  await Boards.getCardLink(title).waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
+  });
   await Boards.getCardLink(title).click();
+  await Boards.editLabelBtn.waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg:
+      "Expected the edit label button to be displayed, but it wasn't.",
+  });
   await Boards.editLabelBtn.click();
   await Boards.greenLabelMarker.click();
   await Boards.closeEditCardBtn.click();
 });
 // Scenario:Filter Cards
-Given(/^the user is on a board with multiple cards$/, async () => {
-  const currentUrl = await browser.getUrl();
-  assert(
-    currentUrl.includes("my-trello-board"),
-    `Expected to be on My Trello board, but was on: ${currentUrl}`
-  );
+Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
+  await Boards.open(title);
 });
 When(/^the user applies a filter using a label$/, async () => {
   await Boards.apllyFilterForcards();

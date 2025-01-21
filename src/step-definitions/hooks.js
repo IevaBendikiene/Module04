@@ -28,10 +28,10 @@ After({ name: "removing list", tags: "@removeList" }, async () => {
   // }
 });
 
-After({ name: "removing board", tags: "@removeBoard" }, async () => {
-  //  await Boards.open(name);
-    // await Boards.header.boardMenuBtn.waitForDisplayed({ timeout: 2000 });
-    // await Boards.header.boardMenuBtn.click();
+After({ name: "removing board", tags: "@removeBoard" }, async (name) => {
+   await Boards.open(name);
+    await Boards.header.boardMenuBtn.waitForDisplayed({ timeout: 2000 });
+    await Boards.header.boardMenuBtn.click();
     await Boards.boardsMenu.closeBoardBtn.click();
     await Boards.boardsMenu.confirmcloseBoardBtn.click();
     await Boards.boardsMenu.deleteBordBtn.click();

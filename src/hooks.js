@@ -23,12 +23,3 @@ const removeBoard = async (name) => {
   await Boards.boardsMenu.confirmDeleteBoardBtn.click();
 };
 module.exports = { logout, removeBoard };
-
-const removeList = async () => {
-  // const listEditButtons = await Boards.listEditBtn;
-  // for (let btn of listEditButtons) {
-  //   await btn.click();
-  //   await Boards.archiveListBtn.waitForDisplayed({ timeout: 2000 });
-  //   await Boards.archiveListBtn.click();
-  // }
-};

@@ -1,38 +1,20 @@
 const { $ } = require("@wdio/globals");
 const Page = require("./page");
+const {ProfileForm} = require("./../components")
 
 class ProfilePage extends Page {
-  get profileIcon() {
-    return $("//button[@data-testid='header-member-menu-button']");
+  constructor(){
+    super("trello.com/u/")
+    this.profileForm = new ProfileForm
+  } 
+  get usernameHeader(){
+    return $('.M7DuYRS8ksp5f8')
   }
-  get profileLink() {
-    return $("//a[@data-testid='account-menu-profile']");
-  }
-  get profileHeader() {
-    return $('//h1[contains(text(),"Manage your personal information")]');
-  }
-  get profileNameInput() {
-    return $("#username");
-  }
-  get saveProfileButton() {
-    return $("//button[@type='submit']");
-  }
-  get usernameHeader() {
-    return $(".M7DuYRS8ksp5f8");
-  }
-  get usernameError() {
-    return $("#SaveProfileError_Field_username");
-  }
-
-  async editProfileName(newName) {
-    await this.profileNameInput.click();
-    await this.profileNameInput.setValue(newName);
-    await this.saveProfileButton.click();
-  }
-
-  async getProfileName() {
-    return await this.profileNameInput.getValue();
-  }
+  async editProfileName(name) {
+    await this.profileForm.profileNameInput.click();
+    await this.profileForm.profileNameInput.setValue(name);
+    await this.profileForm.saveProfileButton.click();
+  } 
 }
-
 module.exports = new ProfilePage();
+

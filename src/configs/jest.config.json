@@ -1,0 +1,6 @@
+{
+  
+    "roots": ["../../testsApi"],
+    "testMatch": ["**/testsApi/**/*.js"]
+  
+}

@@ -1,5 +1,6 @@
 const ProfilePage = require("../pageobjects/pages/profile.page");
 const LoginPage = require("../pageobjects/pages/login.page");
+const HomePage = require("../pageobjects/pages/home.page");
 const { should } = require("chai");
 should();
 const { logout } = require("../hooks");
@@ -14,17 +15,17 @@ describe("Change profile", () => {
     await LoginPage.login(user, password);
   });
   afterEach(async () => {
-    await logout(); // Perform logout after each test
+    await logout(); 
   });
   it("should login with valid credentials", async () => {
     await browser.waitUntil(
       async () => {
         const curentUrl = await browser.getUrl();
 
-        return curentUrl.includes("boards"); // Check if the URL contains 'boards'
+        return curentUrl.includes("boards"); 
       },
       {
-        timeout: 20000, // Maximum wait time (in milliseconds)
+        timeout: 20000, 
         timeoutMsg:
           "Expected URL to contain 'boards', but it didn't after 20 seconds.",
       }
@@ -37,8 +38,9 @@ describe("Change profile", () => {
   });
 
   it("Should get an error, when trying to update name with incorrect format", async () => {
-    await ProfilePage.profileIcon.click();
-    await ProfilePage.profileLink.click();
+    
+    await HomePage.header.profileIcon.click();
+    await HomePage.memberMenu.profileLink.click();
 
     await browser.waitUntil(
       async () => {
@@ -59,15 +61,16 @@ describe("Change profile", () => {
     await ProfilePage.editProfileName(badNewName);
     await browser.pause(10000);
 
-    const error = await ProfilePage.usernameError.getText();
+    const error = await ProfilePage.profileForm.usernameError.getText();
     error.should.equal(
       "Username is invalid: only lowercase letters, underscores, and numbers are allowed",
       `Expected error message to be "Username is invalid: only lowercase letters, underscores, and numbers are allowed", but got: "${error}"`
     );
   });
   it("Update profile information and save, new name displays in the profile", async () => {
-    await ProfilePage.profileIcon.click();
-    await ProfilePage.profileLink.click();
+   
+    await HomePage.header.profileIcon.click();
+    await HomePage.memberMenu.profileLink.click();
 
     await browser.waitUntil(
       async () => {
@@ -100,6 +103,6 @@ describe("Change profile", () => {
       goodNewName,
       `Expected the username header to include "${goodNewName}", but got: "${updatedName}"`
     );
-    // await logout();
+
   });
 });

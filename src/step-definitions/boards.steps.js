@@ -1,6 +1,8 @@
 const { Given, When, Then } = require("@wdio/cucumber-framework");
 const LoginPage = require("../pageobjects/pages/login.page");
 const Boards = require("../pageobjects/pages/boards.page");
+const HomePage = require("../pageobjects/pages/home.page");
+const SearchPage = require("../pageobjects/pages/search.page");
 const assert = require("assert");
 const user = process.env.USER;
 const password = process.env.PASSWORD;
@@ -17,19 +19,19 @@ Given(/^the user is logged in and on the main page$/, async () => {
 });
 
 When("the user clicks the create button", async () => {
-  await Boards.createButton.click();
+  await HomePage.header.createButton.click();
 });
 
 When("chooses create board option", async () => {
-  await Boards.createBoardButton.click();
+  await HomePage.header.createBoardButton.click();
 });
 
 When(/^provides a (.*) for the board$/, async (title) => {
-  await Boards.boardTitleInput.setValue(title);
+  await HomePage.createBoard.boardTitleInput.setValue(title);
 });
 
 When(/^clicks submit button$/, async () => {
-  await Boards.finalCreateBoardBtn.click();
+  await HomePage.createBoard.finalCreateBoardBtn.click();
 });
 Then(
   /^the new board should be created and displayed in the new (.*) workspace$/,
@@ -55,17 +57,17 @@ Given(/^the user is logged in and has boards created$/, async () => {
 });
 
 When(/^the user enters a board (.*) in the search bar$/, async (title) => {
-  await Boards.searchInput.waitForClickable(2000);
-  await Boards.searchInput.click();
-  await Boards.searchInput.setValue(title);
+  await HomePage.header.searchInput.waitForClickable(2000);
+  await HomePage.header.searchInput.click();
+  await HomePage.header.searchInput.setValue(title);
 });
 When(/^presses the View all results link$/, async () => {
-  await Boards.viewAllResultsLink.click();
+  await HomePage.header.viewAllResultsLink.click();
 });
 Then(
   /^the list of (.*) matching boards should be displayed$/,
   async (title) => {
-    const searchResults = await Boards.allSearchResults;
+    const searchResults = await SearchPage.searchCanvas.allSearchResults;
     for (const div of searchResults) {
       const span = await div.$(`span=${title}`);
       const exists = await span.isExisting();
@@ -85,17 +87,17 @@ Given(/^the user is on an existing (.*) board$/, async (name) => {
 });
 
 When("the user clicks on the add a list button", async () => {
-  await Boards.addListBtn.click();
+  await Boards.listComposer.addListBtn.click();
 });
 
 When(/^enters a (.*) for the list and clicks add list$/, async (title) => {
-  await Boards.listTitleInput.setValue(title);
-  await Boards.submitNewListBtn.click();
+  await Boards.listComposer.listTitleInput.setValue(title);
+  await Boards.listComposer.submitNewListBtn.click();
 });
 
 Then(/^the new list (.*) should appear on the board$/, async (title) => {
   // await browser.pause(60000)
-  const listElement = await Boards.listElement;
+  const listElement = await Boards.list.listElement;
   await browser.waitUntil(async () => await listElement.isDisplayed(), {
     timeout: 15000,
     timeoutMsg: `Expected list to be displayed, but it wasn't.`,
@@ -111,11 +113,10 @@ Then(/^the new list (.*) should appear on the board$/, async (title) => {
 // Scenario Create Card
 
 When(/^the user is on a (.*) board$/, async (name) => {
-  await browser.pause(3000);
   await Boards.open(name);
 });
 When(/^on existing list (.*)$/, async (listName) => {
-  const listElement = await Boards.getlistElement(listName);
+  const listElement = await Boards.list.getlistElement(listName);
   await browser.waitUntil(async () => await listElement.isDisplayed(), {
     timeout: 15000,
     timeoutMsg: `Expected list to be displayed, but it wasn't.`,
@@ -124,15 +125,15 @@ When(/^on existing list (.*)$/, async (listName) => {
 When(
   /^the user clicks the Add a Card button under the list name$/,
   async () => {
-    await Boards.addCardBtn.click();
+    await Boards.list.addCardBtn.click();
   }
 );
 When(/^enters a card (.*)$/, async (title) => {
-  await Boards.cardTextareaInput.setValue(title);
-  await Boards.finalAddCardBtn.click();
+  await Boards.list.cardTextareaInput.setValue(title);
+  await Boards.list.finalAddCardBtn.click();
 });
 Then(/^the new card (.*) should appear under the list$/, async (title) => {
-  const cardElement = await Boards.getCardLink(title);
+  const cardElement = await Boards.list.getCardLink(title);
   const isDisplayed = await cardElement.isDisplayed();
   assert.strictEqual(
     isDisplayed,
@@ -140,38 +141,45 @@ Then(/^the new card (.*) should appear under the list$/, async (title) => {
     `Expected card with name ${title} to be displayed, but it wasn't.`
   );
 });
-When(/^set filter on (.*) card$/, async (title) => {
-  await Boards.getCardLink(title).waitForDisplayed({
-    timeout: 5000,
-    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
-  });
-  await Boards.getCardLink(title).click();
-  await Boards.editLabelBtn.waitForDisplayed({
-    timeout: 5000,
-    timeoutMsg:
-      "Expected the edit label button to be displayed, but it wasn't.",
-  });
-  await Boards.editLabelBtn.click();
-  await Boards.greenLabelMarker.click();
-  await Boards.closeEditCardBtn.click();
-});
+
 // Scenario:Filter Cards
 Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
   await Boards.open(title);
 });
+When(/^user sets filter on (.*) card$/, async (card) => {
+  await Boards.list.getCardLink(card).waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
+  });
+  
+  await Boards.list.getCardLink(card).click();
+  await Boards.editCardModal.editLabelBtn.waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg:
+      "Expected the edit label button to be displayed, but it wasn't.",
+  });
+  await Boards.editCardModal.editLabelBtn.click();
+  await Boards.editCardModal.greenLabelMarker.click();
+  await Boards.editCardModal.closeLabelPopoverBtn.click()
+  await Boards.editCardModal.closeEditCardBtn.click();
+});
 When(/^the user applies a filter using a label$/, async () => {
-  await Boards.apllyFilterForcards();
+  await Boards.header.filterBtn.click();
+  await Boards.filterPopover.greenCheckboxEl.click();
+  await Boards.filterPopover.closePopoverBtn.click()
 });
 
 Then(
   /^only the cards matching the filter criteria should be displayed$/,
   async () => {
-    const spanElement = Boards.trelloCard.$('span[data-color="green"]');
+    const spanElement = Boards.list.trelloCard.$('span[data-color="green"]');
     const isDisplayed = await spanElement.isDisplayed();
     assert.strictEqual(
       isDisplayed,
       true,
       'Expected a <span> with data-color="green" to be visible within the card element.'
-    );
+    ); 
+
   }
+  
 );

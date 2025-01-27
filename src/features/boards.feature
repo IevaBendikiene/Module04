@@ -47,19 +47,21 @@ And on existing list <listName>
 When the user clicks the Add a Card button under the list name
 And enters a card <title>
 Then the new card <title> should appear under the list
-And set filter on <title> card
+
 
 Examples:
   | listName | title   | name |
   | ToDo     | NewCard | Christmas |
 
+
 @removeBoard
 @logout
 Scenario: Filter Cards
 Given the user is on a <title> board with multiple cards
+When user sets filter on <card> card
 When the user applies a filter using a label
 Then only the cards matching the filter criteria should be displayed
 
 Examples:
-   | title|
-   | Christmas |
+   | title     | card |
+   | Christmas | NewCard|

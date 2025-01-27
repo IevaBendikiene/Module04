@@ -1,4 +1,3 @@
-// const fetch = require("node-fetch");
 require("dotenv").config();
 const makeRequest = require("../src/support/makeRequest");
 

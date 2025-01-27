@@ -52,7 +52,7 @@ exports.config = {
       browserName: process.env.BROWSER,
       "goog:chromeOptions": { args: ["--disable-gpu"] },
       "ms:edgeOptions": { args: ["--headless", "--disable-gpu"] },
-    //   "moz:firefoxOptions": { args: ["-headless"] },
+      //   "moz:firefoxOptions": { args: ["-headless"] },
 
       // 'goog:chromeOptions': {
       //         args: ['--headless', '--disable-gpu', '--window-size=1920,1080'],
@@ -141,7 +141,17 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec"],
+  reporters: [
+    [
+      "spec",
+      {
+        symbols: {
+          passed: "[PASS]",
+          failed: "[FAIL]",
+        },
+      },
+    ],
+  ],
 
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {

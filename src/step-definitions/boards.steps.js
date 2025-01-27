@@ -141,14 +141,20 @@ Then(/^the new card (.*) should appear under the list$/, async (title) => {
     `Expected card with name ${title} to be displayed, but it wasn't.`
   );
 });
-When(/^set filter on (.*) card$/, async (title) => {
-  // await Boards.list.getCardLink(title).waitForClickable({
-  //   timeout: 5000,
-  //   timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
-  // });
-  await Boards.list.getCardLink(title).click();
+
+// Scenario:Filter Cards
+Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
+  await Boards.open(title);
+});
+When(/^user sets filter on (.*) card$/, async (card) => {
+  await Boards.list.getCardLink(card).waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
+  });
+  
+  await Boards.list.getCardLink(card).click();
   await Boards.editCardModal.editLabelBtn.waitForDisplayed({
-    timeout: 10000,
+    timeout: 5000,
     timeoutMsg:
       "Expected the edit label button to be displayed, but it wasn't.",
   });
@@ -156,10 +162,6 @@ When(/^set filter on (.*) card$/, async (title) => {
   await Boards.editCardModal.greenLabelMarker.click();
   await Boards.editCardModal.closeLabelPopoverBtn.click()
   await Boards.editCardModal.closeEditCardBtn.click();
-});
-// Scenario:Filter Cards
-Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
-  await Boards.open(title);
 });
 When(/^the user applies a filter using a label$/, async () => {
   await Boards.header.filterBtn.click();

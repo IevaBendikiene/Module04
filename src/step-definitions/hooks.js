@@ -16,9 +16,7 @@ After({ name: "logout user", tags: "@logout" }, async () => {
   await logout();
 });
 
-
-After({ name: "removing board", tags: "@removeBoard" }, async (name) => {
-   await Boards.open(name);
+After({ name: "removing board", tags: "@removeBoard" }, async () => {
     await Boards.header.boardMenuBtn.waitForDisplayed({ timeout: 2000 });
     await Boards.header.boardMenuBtn.click();
     await Boards.boardsMenu.closeBoardBtn.click();

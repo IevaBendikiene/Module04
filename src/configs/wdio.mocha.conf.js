@@ -1,7 +1,7 @@
 // import pkg from 'wdio-mochawesome-reporter';
 // const { mergeResults } = pkg;
 
-export const config = {
+exports.config = {
   // ====================
   // Runner Configuration
   // ====================
@@ -69,18 +69,13 @@ export const config = {
     // console.log('Merging Mochawesome reports...');
    
     try {
-      const { mergeResults } = await import('wdio-mochawesome-reporter/mergeResults.js'); // ✅ Use dynamic import
+      const  mergeResults  = require('wdio-mochawesome-reporter/mergeResults'); // ✅ Use dynamic import
       await mergeResults('./Results', 'results-*');
       console.log("Mochawesome reports merged successfully.");
     } catch (err) {
       console.error("Error merging Mochawesome reports:", err);
     }
-    // try {
-      // await mergeResults("./Results", "results-*");
-    //   console.log("Mochawesome report merged successfully.");
-    // } catch (err) {
-    //   console.error("Error merging Mochawesome reports:", err);
-    // }
+ 
   },
   // mochawesomeOpts: {
   //   includeScreenshots: true, // Embed screenshots in report
@@ -96,7 +91,7 @@ export const config = {
     ui: 'bdd',
     timeout: 60000,
     retry: 2,
-    require: ['esm'],
+  
   },
 
   reporterSyncTimeout: 10000,

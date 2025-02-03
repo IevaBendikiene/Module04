@@ -6,13 +6,13 @@
     "test": "jest --config=src/configs/jest.config.json",
     "wdio-mocha": "wdio run src/configs/wdio.mocha.conf.js",
     "wdio-cucumber": "wdio run src/configs/wdio.cucumber.conf.js",
-    "generateMochawesome": "marge ./Results/wdio-ma-merged.json --reportTitle 'My Project Results'"
+    "generateMochawesome": "marge Results/wdio-ma-merged.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "devDependencies": {
     "@wdio/cli": "^9.4.1",
     "@wdio/cucumber-framework": "^9.3.1",

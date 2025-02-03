@@ -45,6 +45,16 @@ When("the user changes their profile name", async () => {
 Then(
   "the updated information should be saved and displayed in the profile",
   async () => {
+    await browser.waitUntil(
+      async () => {
+        const updatedName = await ProfilePage.usernameHeader.getText();
+        return updatedName === `@${newName}`;
+      },
+      {
+        timeout: 5000, // Wait for up to 5 seconds
+        timeoutMsg: `Profile name was not updated to @${newName} within the timeout.`,
+      }
+    );
     const updatedName = await ProfilePage.usernameHeader.getText();
     const expectedName = `@${newName}`;
     assert.strictEqual(

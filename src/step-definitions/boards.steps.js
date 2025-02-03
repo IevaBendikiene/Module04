@@ -33,11 +33,19 @@ When(/^provides a (.*) for the board$/, async (title) => {
 When(/^clicks submit button$/, async () => {
   await HomePage.createBoard.finalCreateBoardBtn.click();
 });
-Then(
-  /^the new board should be created and displayed in the new (.*) workspace$/,
+Then(/^the new board should be created and displayed in the new (.*) workspace$/,
   async (title) => {
-    const newTitle = title.toLowerCase().replace(/\s+/g, "");
-    await browser.pause(10000);
+    const newTitle = title.toLowerCase().replace(/\s+/g, "");   
+  await browser.waitUntil(
+    async () => {
+      const currentUrl = await browser.getUrl();
+      return currentUrl.includes(newTitle);
+    },
+    {
+      timeout: 15000, // Wait up to 10 seconds
+      timeoutMsg: `Expected URL to include "${newTitle}", but it didn't change in time.`,
+    }
+  );
     const currentUrl = await browser.getUrl();
     assert(
       currentUrl.includes(newTitle),
@@ -141,14 +149,20 @@ Then(/^the new card (.*) should appear under the list$/, async (title) => {
     `Expected card with name ${title} to be displayed, but it wasn't.`
   );
 });
-When(/^set filter on (.*) card$/, async (title) => {
-  // await Boards.list.getCardLink(title).waitForClickable({
-  //   timeout: 5000,
-  //   timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
-  // });
-  await Boards.list.getCardLink(title).click();
+
+// Scenario:Filter Cards
+Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
+  await Boards.open(title);
+});
+When(/^user sets filter on (.*) card$/, async (card) => {
+  await Boards.list.getCardLink(card).waitForDisplayed({
+    timeout: 5000,
+    timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
+  });
+  
+  await Boards.list.getCardLink(card).click();
   await Boards.editCardModal.editLabelBtn.waitForDisplayed({
-    timeout: 10000,
+    timeout: 5000,
     timeoutMsg:
       "Expected the edit label button to be displayed, but it wasn't.",
   });
@@ -156,10 +170,6 @@ When(/^set filter on (.*) card$/, async (title) => {
   await Boards.editCardModal.greenLabelMarker.click();
   await Boards.editCardModal.closeLabelPopoverBtn.click()
   await Boards.editCardModal.closeEditCardBtn.click();
-});
-// Scenario:Filter Cards
-Given(/^the user is on a (.*) board with multiple cards$/, async (title) => {
-  await Boards.open(title);
 });
 When(/^the user applies a filter using a label$/, async () => {
   await Boards.header.filterBtn.click();
@@ -177,7 +187,5 @@ Then(
       true,
       'Expected a <span> with data-color="green" to be visible within the card element.'
     ); 
-
   }
-  
 );

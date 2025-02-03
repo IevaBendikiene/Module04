@@ -6,7 +6,7 @@
     "test": "jest --config=src/configs/jest.config.json",
     "wdio-mocha": "wdio run src/configs/wdio.mocha.conf.js",
     "wdio-cucumber": "wdio run src/configs/wdio.cucumber.conf.js",
-    "generateMochawesome": "marge Results/wdio-ma-merged.json"
+    "generateMochawesome": "marge wdio-ma-merged.json --autoOpen"
   },
   "keywords": [],
   "author": "",

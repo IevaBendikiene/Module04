@@ -1,6 +1,3 @@
-// import pkg from 'wdio-mochawesome-reporter';
-// const { mergeResults } = pkg;
-
 exports.config = {
   // ====================
   // Runner Configuration
@@ -10,12 +7,11 @@ exports.config = {
   // ==================
   // Specify Test Files
   // ==================
-  specs: ['../specs/**/login.chai.js'],
+  specs: ['../specs/**/**.chai.js'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
   ],
-
   // ============
   // Capabilities
   // ============
@@ -27,7 +23,6 @@ exports.config = {
       'ms:edgeOptions': { args: ['--headless', '--disable-gpu'] },
     },
   ],
-
   // ===================
   // Test Configurations
   // ===================
@@ -52,41 +47,23 @@ exports.config = {
     [
       'mochawesome',
       {
-        outputDir: './Results',
+        outputDir: './',
         outputFileFormat: function (opts) {
           return `results-${opts.cid}.json`;
         },
       },
     ],
   ],
-  onComplete: async function (exitCode, config, capabilities, results) {
-   
-    // const mergeResult = new Promise(
-    //   (resolve) => {
-    //   setTimeout(async () => resolve(await mergeResults('./Results', 'results-*')), 60000);
-    // });
-    // const data = await mergeResult;
-    // console.log('Merging Mochawesome reports...');
-   
+  onComplete: async function (exitCode, config, capabilities, results) {   
     try {
       const  mergeResults  = require('wdio-mochawesome-reporter/mergeResults'); // ✅ Use dynamic import
-      await mergeResults('./Results', 'results-*');
+      await mergeResults('./', 'results-*');
       console.log("Mochawesome reports merged successfully.");
     } catch (err) {
       console.error("Error merging Mochawesome reports:", err);
     }
  
   },
-  // mochawesomeOpts: {
-  //   includeScreenshots: true, // Embed screenshots in report
-  //   screenshotUseRelativePath: true, // Use relative paths for portability
-  // },
-
-  // Hook to merge results after tests complete
-  // onComplete: function (exitCode, config, capabilities, results) {
-  //   console.log("Merging Mochawesome reports...");
-  //   mergeResults("./Results", "results-*");
-  // },
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,

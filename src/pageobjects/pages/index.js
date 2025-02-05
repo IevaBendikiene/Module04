@@ -1,10 +1,10 @@
-const LoginPage = require("./login.page");
-const BoardsPage = require("./boards.page");
-const HomePage = require("./home.page");
-const LogoutPage = require("./logout.page");
-const ProfilePage = require("./profile.page");
-const SearchPage = require("./search.page");
-const WorkspacePage = require("./workspace.page");
+const LoginPage = require('./login.page');
+const BoardsPage = require('./boards.page');
+const HomePage = require('./home.page');
+const LogoutPage = require('./logout.page');
+const ProfilePage = require('./profile.page');
+const SearchPage = require('./search.page');
+const WorkspacePage = require('./workspace.page');
 
 function pages(name) {
   const items = {
@@ -26,5 +26,5 @@ module.exports = {
   ProfilePage,
   SearchPage,
   WorkspacePage,
-  pages
+  pages,
 };

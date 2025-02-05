@@ -6,7 +6,8 @@
     "test": "jest --config=src/configs/jest.config.json",
     "wdio-mocha": "wdio run src/configs/wdio.mocha.conf.js",
     "wdio-cucumber": "wdio run src/configs/wdio.cucumber.conf.js",
-    "generateMochawesome": "marge wdio-ma-merged.json --autoOpen"
+    "generateMochawesome": "marge wdio-ma-merged.json --autoOpen",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
   "description": "",
   "type": "commonjs",
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
     "@wdio/cli": "^9.4.1",
     "@wdio/cucumber-framework": "^9.3.1",
     "@wdio/local-runner": "^9.4.1",
@@ -22,9 +24,12 @@
     "@wdio/visual-service": "^6.2.2",
     "chai": "^4.0.2",
     "chai-webdriverio": "^1.0.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-wdio": "^9.6.0",
+    "globals": "^15.14.0",
     "jest": "^29.7.0",
     "mochawesome-report-generator": "^6.2.0",
-    "prettier": "^3.4.2",
+    "prettier": "3.4.2",
     "wdio-html-reporter": "^1.0.2",
     "wdio-mochawesome-reporter": "^6.1.1"
   },

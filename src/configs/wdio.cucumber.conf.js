@@ -3,11 +3,11 @@ exports.config = {
   // ====================
   // Runner Configuration
   // ====================
-  runner: "local",
+  runner: 'local',
   // ==================
   // Specify Test Files
   // ==================
-  specs: ["../features/**/**.feature"],
+  specs: ['../features/**/boards.feature'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -19,8 +19,8 @@ exports.config = {
   capabilities: [
     {
       browserName: process.env.BROWSER,
-      "goog:chromeOptions": { args: ["--disable-gpu"] },
-      "ms:edgeOptions": { args: ["--headless", "--disable-gpu"] },
+      'goog:chromeOptions': { args: ['--disable-gpu'] },
+      'ms:edgeOptions': { args: ['--headless', '--disable-gpu'] },
     },
   ],
 
@@ -28,21 +28,21 @@ exports.config = {
   // Test Configurations
   // ===================
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: 'info',
   bail: 0,
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
- 
+
   connectionRetryTimeout: 120000,
   // Default request retries count
   connectionRetryCount: 0,
-  framework: "cucumber",
-  reporters: ["spec"],
+  framework: 'cucumber',
+  reporters: ['spec'],
 
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
-    require: ["./src/step-definitions/**/*.js"],
+    require: ['./src/step-definitions/**/*.js'],
     // <boolean> show full backtrace for errors
     backtrace: false,
     // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
@@ -60,7 +60,7 @@ exports.config = {
     // <boolean> fail if there are any undefined or pending steps
     strict: false,
     // <string> (expression) only execute the features or scenarios with tags matching the expression
-    tagExpression: "",
+    tagExpression: '',
     // <number> timeout for step definitions
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.

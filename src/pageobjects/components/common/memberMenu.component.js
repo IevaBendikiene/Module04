@@ -1,4 +1,4 @@
-const BaseComponent = require("../common/base.component");
+const BaseComponent = require('../common/base.component');
 // const Button = require("../../controls/button");
 
 class MemberMenuComponent extends BaseComponent {
@@ -8,7 +8,6 @@ class MemberMenuComponent extends BaseComponent {
   get logoutBtn() {
     return $('//button[@data-testid="account-menu-logout"]');
   }
-  
 }
 
 module.exports = MemberMenuComponent;

@@ -1,6 +1,6 @@
-const { Given, When, Then } = require("@wdio/cucumber-framework");
-const LoginPage = require("../pageobjects/pages/login.page");
-const assert = require("assert");
+const { Given, When, Then } = require('@wdio/cucumber-framework');
+const LoginPage = require('../pageobjects/pages/login.page');
+const assert = require('assert');
 const username = process.env.USER;
 const password = process.env.PASSWORD;
 
@@ -15,7 +15,7 @@ When(/^the user logs in with username and password$/, async () => {
 Then(/^the user is redirected back to Trello$/, async () => {
   const currentUrl = await browser.getUrl();
   assert(
-    currentUrl.includes("trello.com"),
-    `Expected to be redirected back to Trello, but was on: ${currentUrl}`
+    currentUrl.includes('trello.com'),
+    `Expected to be redirected back to Trello, but was on: ${currentUrl}`,
   );
 });

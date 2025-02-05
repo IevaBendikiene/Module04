@@ -1,13 +1,13 @@
-const Boards = require("./pageobjects/pages/boards.page");
-const HomePage = require("./pageobjects/pages/home.page")
-const LogoutPage = require("./pageobjects/pages/logout.page")
+const Boards = require('./pageobjects/pages/boards.page');
+const HomePage = require('./pageobjects/pages/home.page');
+const LogoutPage = require('./pageobjects/pages/logout.page');
 
 const logout = async () => {
   await HomePage.header.profileIcon.click();
   const logoutButton = await HomePage.memberMenu.logoutBtn;
   await logoutButton.waitForDisplayed({ timeout: 2000 });
   await logoutButton.click();
-  
+
   const logoutSubmitButton = await LogoutPage.logoutForm.logoutSubmitBtn;
   await logoutSubmitButton.waitForClickable({ timeout: 2000 });
   await logoutSubmitButton.click();

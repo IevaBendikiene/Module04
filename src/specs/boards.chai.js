@@ -1,18 +1,17 @@
-const { expect } = require("chai"); // Import Chai
-const Boards = require("../pageobjects/pages/boards.page");
-const LoginPage = require("../pageobjects/pages/login.page");
-const HomePage = require("../pageobjects/pages/home.page");
-const SearchPage = require("../pageobjects/pages/search.page");
-const { logout, removeBoard } = require("../hooks");
-// const {pages} = require("./../pageobjects")
+const { expect } = require('chai'); // Import Chai
+const Boards = require('../pageobjects/pages/boards.page');
+const LoginPage = require('../pageobjects/pages/login.page');
+const HomePage = require('../pageobjects/pages/home.page');
+const SearchPage = require('../pageobjects/pages/search.page');
+const { logout, removeBoard } = require('../hooks');
 
 const user = process.env.USER;
 const password = process.env.PASSWORD;
-const title = "Jokes";
-const listName = "Family";
-const cardName = "Dads";
+const title = 'Jokes';
+const listName = 'Family';
+const cardName = 'Dads';
 
-describe("Check boards page features are working correctly", () => {
+describe('Check boards page features are working correctly', () => {
   beforeEach(async () => {
     await LoginPage.open();
     await LoginPage.login(user, password);
@@ -22,39 +21,47 @@ describe("Check boards page features are working correctly", () => {
     await logout();
   });
 
-  it("should login with valid credentials", async () => {
-    // Wait for the URL to contain 'boards'
+  it('should login with valid credentials', async () => {
     await browser.waitUntil(
       async () => {
         const currentUrl = await browser.getUrl();
-        return currentUrl.includes("boards");
+        return currentUrl.includes('boards');
       },
       {
         timeout: 20000, // Maximum wait time (in milliseconds)
         timeoutMsg:
           "Expected URL to contain 'boards', but it didn't after 20 seconds.",
-      }
+      },
     );
     const currentUrl = await browser.getUrl();
     expect(currentUrl).to.include(
-      "boards",
-      `Expected URL to contain 'boards', but got: ${currentUrl}`
+      'boards',
+      `Expected URL to contain 'boards', but got: ${currentUrl}`,
     );
   });
-  it("Board should be created", async () => {
+  it('Board should be created', async () => {
     await HomePage.header.createButton.click();
     await HomePage.header.createBoardButton.click();
     await HomePage.createBoard.boardTitleInput.setValue(title);
     await HomePage.createBoard.finalCreateBoardBtn.click();
-    const newTitle = title.toLowerCase().replace(/\s+/g, "");
-    await browser.pause(10000);
+    const newTitle = title.toLowerCase().replace(/\s+/g, '');
+    await browser.waitUntil(
+      async () => {
+        const currentUrl = await browser.getUrl();
+        return currentUrl.includes(newTitle);
+      },
+      {
+        timeout: 10000,
+        timeoutMsg: `Expected URL to include "${newTitle}", but it did not change in time`,
+      },
+    );
     const currentUrl = await browser.getUrl();
     expect(currentUrl).to.include(
       newTitle,
-      `Expected URL "${currentUrl}" to include "${newTitle}"`
+      `Expected URL "${currentUrl}" to include "${newTitle}"`,
     );
   });
-  it("Search for a board", async () => {
+  it('Search for a board', async () => {
     await HomePage.header.searchInput.waitForClickable();
     await HomePage.header.searchInput.click();
 
@@ -66,11 +73,11 @@ describe("Check boards page features are working correctly", () => {
       const exists = await span.isExisting();
       expect(
         exists,
-        `Expected <div role="presentation"> to contain a <span> with text ${title}.`
+        `Expected <div role="presentation"> to contain a <span> with text ${title}.`,
       ).to.be.true;
     }
   });
-  it("List should be created", async () => {
+  it('List should be created', async () => {
     await Boards.open(title);
     await Boards.listComposer.addListBtn.click();
     await Boards.listComposer.listTitleInput.setValue(listName);
@@ -86,7 +93,7 @@ describe("Check boards page features are working correctly", () => {
       .true;
   });
 
-  it("Should create card in the list", async () => {
+  it('Should create card in the list', async () => {
     await Boards.open(title);
     const listElement = await Boards.list.getlistElement(listName);
     await browser.waitUntil(async () => await listElement.isDisplayed(), {
@@ -101,7 +108,7 @@ describe("Check boards page features are working correctly", () => {
     const cardIsDisplayed = await card.isDisplayed();
     expect(cardIsDisplayed).to.be.true;
   });
-  it("Should filter cards", async () => {
+  it('Should filter cards', async () => {
     await Boards.open(title);
     await Boards.list.getCardLink(cardName).click();
     await Boards.editCardModal.editLabelBtn.click();
@@ -111,7 +118,7 @@ describe("Check boards page features are working correctly", () => {
     await Boards.filterPopover.greenCheckboxEl.click();
 
     const spanElement = await Boards.list.trelloCard.$(
-      '//span[@data-color="green"]'
+      '//span[@data-color="green"]',
     );
     const isDisplayed = await spanElement.isDisplayed();
 

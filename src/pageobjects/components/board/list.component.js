@@ -1,16 +1,17 @@
-const { $ } = require("@wdio/globals");
-const BaseComponent = require("../common/base.component")
+const { $ } = require('@wdio/globals');
+const BaseComponent = require('../common/base.component');
 
-class ListComponent extends BaseComponent{
-  
+class ListComponent extends BaseComponent {
   get listElement() {
-    return $('div[data-testid="list"]');// 
+    return $('div[data-testid="list"]'); //
   }
   getlistElement(name) {
-    return $(`//li[@data-testid="list-wrapper" and .//h2[@data-testid="list-name" and contains(text(), "${name}")]]`);//listcomponentas
+    return $(
+      `//li[@data-testid="list-wrapper" and .//h2[@data-testid="list-name" and contains(text(), "${name}")]]`,
+    ); //listcomponentas
   }
   get addCardBtn() {
-    return $('//button[@data-testid="list-add-card-button"]');// list componento viduje
+    return $('//button[@data-testid="list-add-card-button"]'); // list componento viduje
   }
   get cardTextareaInput() {
     return $('//textarea[@data-testid="list-card-composer-textarea"]');
@@ -25,4 +26,4 @@ class ListComponent extends BaseComponent{
     return $('//div[@data-testid="trello-card"]');
   }
 }
-module.exports = ListComponent
+module.exports = ListComponent;

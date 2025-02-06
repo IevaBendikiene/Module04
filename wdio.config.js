@@ -4,7 +4,7 @@ exports.config = {
   framework: "cucumber",
 
   cucumberOpts: {
-    require: ["./features/step-definitions/*.js"],
+    require: ["./features/step_definitions/*.js"],
     timeout: 60000,
   },
 

@@ -7,7 +7,7 @@ exports.config = {
   // ==================
   // Specify Test Files
   // ==================
-  specs: ['../features/**/login-trello.feature'],
+  specs: ['../features/**/*.feature'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'

@@ -1,6 +1,7 @@
 const { When } = require('@wdio/cucumber-framework');
 const ProfilePage = require('../../pageobjects/pages/profile.page');
 const HomePage = require('../../pageobjects/pages/home.page');
+const assert = require('assert');
 const newName = '2025test';
 
 When('the user clicks profile icon', async () => {

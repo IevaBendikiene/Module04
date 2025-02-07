@@ -33,8 +33,7 @@ When(/^provides a (.*) for the board$/, async (title) => {
 When(/^clicks submit button$/, async () => {
   await HomePage.createBoard.finalCreateBoardBtn.click();
 });
-Then(
-  /^the new board should be created and displayed in the new (.*) workspace$/,
+Then(/^the new board should be created and displayed in the new (.*) workspace$/,
   async (title) => {
     const newTitle = title.toLowerCase().replace(/\s+/g, '');
     await browser.waitUntil(
@@ -47,6 +46,7 @@ Then(
         timeoutMsg: `Expected URL to include "${newTitle}", but it didn't change in time.`,
       },
     );
+
     const currentUrl = await browser.getUrl();
     assert(
       currentUrl.includes(newTitle),
@@ -159,7 +159,6 @@ When(/^user sets filter on (.*) card$/, async (card) => {
     timeout: 5000,
     timeoutMsg: "Expected the card label to be displayed, but it wasn't.",
   });
-
   await Boards.list.getCardLink(card).click();
   await Boards.editCardModal.editLabelBtn.waitForDisplayed({
     timeout: 5000,
@@ -176,7 +175,6 @@ When(/^the user applies a filter using a label$/, async () => {
   await Boards.filterPopover.greenCheckboxEl.click();
   await Boards.filterPopover.closePopoverBtn.click();
 });
-
 Then(
   /^only the cards matching the filter criteria should be displayed$/,
   async () => {

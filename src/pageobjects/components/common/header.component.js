@@ -1,15 +1,15 @@
-const BaseComponent = require("./base.component");
+const BaseComponent = require('./base.component');
 
 class HeaderComponent extends BaseComponent {
   constructor() {
-    super("#header");
+    super('#header');
   }
   get workspaceNav() {
-      return this.rootEl.$('//button[@data-testid="workspace-switcher"]');
-    }
-    get myWorkspaceLink() {
-      return $('//a[@data-testid="workspace-switcher-popover-tile"]');
-    }
+    return this.rootEl.$('//button[@data-testid="workspace-switcher"]');
+  }
+  get myWorkspaceLink() {
+    return $('//a[@data-testid="workspace-switcher-popover-tile"]');
+  }
   get createButton() {
     return this.rootEl.$('//button[@data-testid="header-create-menu-button"]');
   }
@@ -17,14 +17,14 @@ class HeaderComponent extends BaseComponent {
     return $('//button[@data-testid="header-create-board-button"]');
   }
   get searchInput() {
-      return this.rootEl.$('//input[contains(@placeholder, "Search")]');
-    }
+    return this.rootEl.$('//input[contains(@placeholder, "Search")]');
+  }
   get viewAllResultsLink() {
-      return $('//*[text()="View all results"]');
-    }  
-   get profileIcon() {
-      return this.rootEl.$("//button[@data-testid='header-member-menu-button']");
-    }
+    return $('//*[text()="View all results"]');
+  }
+  get profileIcon() {
+    return this.rootEl.$("//button[@data-testid='header-member-menu-button']");
+  }
 }
 
 module.exports = HeaderComponent;

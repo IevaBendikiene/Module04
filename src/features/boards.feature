@@ -34,7 +34,7 @@ Scenario: Create a List
 Given the user is on an existing <name> board
 When the user clicks on the add a list button
 And enters a <title> for the list and clicks add list
-Then the new list <title> list should appear on the board
+Then the new list list should appear on the board
 
 Examples:
    | title| name |
@@ -63,5 +63,6 @@ When the user applies a filter using a label
 Then only the cards matching the filter criteria should be displayed
 
 Examples:
-   | title     | card |
-   | Christmas | NewCard|
+   | title     | card    |
+   | Christmas | NewCard |
+

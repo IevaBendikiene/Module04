@@ -54,21 +54,19 @@ exports.config = {
       },
     ],
   ],
-  onComplete: async function (exitCode, config, capabilities, results) {   
+  onComplete: async function (exitCode, config, capabilities, results) {
     try {
-      const  mergeResults  = require('wdio-mochawesome-reporter/mergeResults'); // ✅ Use dynamic import
+      const mergeResults = require('wdio-mochawesome-reporter/mergeResults'); // ✅ Use dynamic import
       await mergeResults('./', 'results-*');
-      console.log("Mochawesome reports merged successfully.");
+      console.log('Mochawesome reports merged successfully.');
     } catch (err) {
-      console.error("Error merging Mochawesome reports:", err);
+      console.error('Error merging Mochawesome reports:', err);
     }
- 
   },
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
     retry: 2,
-  
   },
 
   reporterSyncTimeout: 10000,

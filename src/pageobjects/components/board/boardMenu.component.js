@@ -1,8 +1,8 @@
-const BaseComponent = require("../common/base.component");
+const BaseComponent = require('../common/base.component');
 
 class BoardMenuComponent extends BaseComponent {
-  constructor(){
-    super(".board-menu")
+  constructor() {
+    super('.board-menu');
   }
   get closeBoardBtn() {
     return $('//div[text()="Close board"]');
@@ -10,11 +10,13 @@ class BoardMenuComponent extends BaseComponent {
   get confirmcloseBoardBtn() {
     return $('//button[@data-testid="popover-close-board-confirm"]');
   }
-  get deleteBordBtn(){
-    return $('//button[@data-testid="close-board-delete-board-button"]')
+  get deleteBordBtn() {
+    return $('//button[@data-testid="close-board-delete-board-button"]');
   }
-  get confirmDeleteBoardBtn(){
-    return $('//button[@data-testid="close-board-delete-board-confirm-button"]')
+  get confirmDeleteBoardBtn() {
+    return $(
+      '//button[@data-testid="close-board-delete-board-confirm-button"]',
+    );
   }
 }
-module.exports = BoardMenuComponent 
+module.exports = BoardMenuComponent;

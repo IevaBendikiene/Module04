@@ -1,6 +1,4 @@
 {
-  
-    "roots": ["../../testsApi"],
-    "testMatch": ["**/testsApi/**/*.js"]
-  
+  "roots": ["../../testsApi"],
+  "testMatch": ["**/testsApi/**/*.js"]
 }

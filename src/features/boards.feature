@@ -2,6 +2,7 @@ Feature: Trello board
 Background: 
 Given the user is logged in and on the main page
 
+
 @logout
 Scenario: Create a Board
 
@@ -48,10 +49,10 @@ When the user clicks the Add a Card button under the list name
 And enters a card <title>
 Then the new card <title> should appear under the list
 
-
 Examples:
   | listName | title   | name |
   | ToDo     | NewCard | Christmas |
+
 
 @removeBoard
 @logout
@@ -62,5 +63,5 @@ When the user applies a filter using a label
 Then only the cards matching the filter criteria should be displayed
 
 Examples:
-   | title| card |
-   | Christmas | NewCard |
+   | title     | card |
+   | Christmas | NewCard|

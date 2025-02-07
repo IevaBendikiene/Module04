@@ -33,11 +33,19 @@ When(/^provides a (.*) for the board$/, async (title) => {
 When(/^clicks submit button$/, async () => {
   await HomePage.createBoard.finalCreateBoardBtn.click();
 });
-Then(
-  /^the new board should be created and displayed in the new (.*) workspace$/,
+Then(/^the new board should be created and displayed in the new (.*) workspace$/,
   async (title) => {
-    const newTitle = title.toLowerCase().replace(/\s+/g, "");
-    await browser.pause(10000);
+    const newTitle = title.toLowerCase().replace(/\s+/g, "");   
+  await browser.waitUntil(
+    async () => {
+      const currentUrl = await browser.getUrl();
+      return currentUrl.includes(newTitle);
+    },
+    {
+      timeout: 15000, // Wait up to 10 seconds
+      timeoutMsg: `Expected URL to include "${newTitle}", but it didn't change in time.`,
+    }
+  );
     const currentUrl = await browser.getUrl();
     assert(
       currentUrl.includes(newTitle),
@@ -179,7 +187,5 @@ Then(
       true,
       'Expected a <span> with data-color="green" to be visible within the card element.'
     ); 
-
   }
-  
 );

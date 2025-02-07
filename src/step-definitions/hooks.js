@@ -15,7 +15,6 @@ await HomePage.header.profileIcon.click();
 After({ name: "logout user", tags: "@logout" }, async () => {
   await logout();
 });
-
 After({ name: "removing board", tags: "@removeBoard" }, async () => {
     await Boards.header.boardMenuBtn.waitForDisplayed({ timeout: 2000 });
     await Boards.header.boardMenuBtn.click();

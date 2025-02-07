@@ -1,2 +1,6 @@
 node_modules
 .env
+reports/
+mochawesome-report/
+/results-*.json
+/wdio-ma-merged.json

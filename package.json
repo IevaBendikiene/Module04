@@ -7,8 +7,7 @@
     "wdio-mocha": "wdio run src/configs/wdio.mocha.conf.js",
     "wdio-cucumber": "wdio run src/configs/wdio.cucumber.conf.js",
     "generateMochawesome": "marge wdio-ma-merged.json --autoOpen",
-    "lint": "eslint",
-    "test-cucumber": "cucumber-js"
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +15,6 @@
   "description": "",
   "type": "commonjs",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.2.0",
     "@eslint/js": "^9.19.0",
     "@wdio/cli": "^9.4.1",
     "@wdio/cucumber-framework": "^9.3.1",

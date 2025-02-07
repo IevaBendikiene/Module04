@@ -1,7 +1,9 @@
 Feature: user profile
+
 @logout
 Scenario: Edit User Profile
-Given the user is logged into Trello 
+Given the user is on the Trello login page
+And the user logs in with username and password
 When the user clicks profile icon
 And the user clicks the profile link button
 When user is navigated to profile page

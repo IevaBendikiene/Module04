@@ -1,9 +1,10 @@
 Feature: Trello board
 Background: 
-Given the user is logged in and on the main page
+Given the user is on the Trello login page
+And the user logs in with username and password
 
 @logout
-Scenario: Create a Board
+Scenario Outline: Create a Board
 
 When the user clicks the create button
 And chooses create board option
@@ -16,7 +17,7 @@ Examples:
    | Christmas |
 
 @logout
-Scenario: Search for a Board
+Scenario Outline: Search for a Board
 
 Given the user is logged in and has boards created
 When the user enters a board <title> in the search bar
@@ -28,7 +29,7 @@ Examples:
    | Christmas |
 
 @logout
-Scenario: Create a List
+Scenario Outline: Create a List
 
 Given the user is on an existing <name> board
 When the user clicks on the add a list button
@@ -42,7 +43,7 @@ Examples:
 @logout
 Scenario Outline: Create a Card
 
-When the user is on a <name> board
+Given the user is on an existing <name> board
 And on existing list <listName> 
 When the user clicks the Add a Card button under the list name
 And enters a card <title>
@@ -55,13 +56,13 @@ Examples:
 
 @removeBoard
 @logout
-Scenario: Filter Cards
-Given the user is on a <title> board with multiple cards
+Scenario Outline: Filter Cards
+Given the user is on an existing <name> board
 When user sets filter on <card> card
 When the user applies a filter using a label
 Then only the cards matching the filter criteria should be displayed
 
 Examples:
-   | title     | card    |
+   | name      | card    |
    | Christmas | NewCard |
 

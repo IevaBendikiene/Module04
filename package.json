@@ -34,6 +34,7 @@
     "wdio-mochawesome-reporter": "^6.1.1"
   },
   "dependencies": {
+    "@wdio/selenium-standalone-service": "^8.14.0",
     "dotenv": "^16.4.7",
     "node-fetch": "^2.7.0"
   }

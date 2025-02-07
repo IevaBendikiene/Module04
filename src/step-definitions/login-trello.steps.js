@@ -1,7 +1,7 @@
 // const { Given, When, Then} = require('@wdio/cucumber-framework')
 
-require('./actions/login.actions');
-require('./valitations/login.validations');
+require('./actions/login-trello.actions');
+require('./validations/login-trello.validations');
 
 // const { Given, When, Then } = require('@wdio/cucumber-framework');
 // const LoginPage = require('../pageobjects/pages/login.page');

@@ -25,3 +25,5 @@ Then(
     );
   },
 );
+
+module.exports = {};

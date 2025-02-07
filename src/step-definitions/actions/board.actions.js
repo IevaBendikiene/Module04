@@ -96,3 +96,5 @@ When(/^the user applies a filter using a label$/, async () => {
   await Boards.filterPopover.greenCheckboxEl.click();
   await Boards.filterPopover.closePopoverBtn.click();
 });
+
+module.exports = {};

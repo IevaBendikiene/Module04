@@ -8,3 +8,5 @@ Then(/^the user is redirected back to Trello$/, async () => {
     `Expected to be redirected back to Trello, but was on: ${currentUrl}`,
   );
 });
+
+module.exports = {};

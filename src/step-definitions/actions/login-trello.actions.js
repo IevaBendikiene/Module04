@@ -10,3 +10,4 @@ Given(/^the user is on the Trello login page$/, async () => {
 When(/^the user logs in with username and password$/, async () => {
   await LoginPage.login(username, password);
 });
+module.exports = {};

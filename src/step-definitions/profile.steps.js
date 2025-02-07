@@ -1,7 +1,6 @@
-
-require('./actions/login.actions');
-require('./actions/profile.actions')
-require('./valitations/profile.validations')
+require('./actions/login-trello.actions');
+require('./actions/profile.actions');
+require('./validations/profile.validations');
 
 // const { Given} = require('@wdio/cucumber-framework');
 // const LoginPage = require('../pageobjects/pages/login.page');
@@ -10,7 +9,6 @@ require('./valitations/profile.validations')
 
 // const user = process.env.USER;
 // const password = process.env.PASSWORD;
-
 
 // Given(/^the user is logged into Trello$/, async () => {
 //   await LoginPage.open();
@@ -45,4 +43,3 @@ require('./valitations/profile.validations')
 // When('the user changes their profile name', async () => {
 //   await ProfilePage.editProfileName(newName);
 // });
-

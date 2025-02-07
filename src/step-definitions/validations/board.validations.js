@@ -76,3 +76,5 @@ Then(
     );
   },
 );
+
+module.exports = {};

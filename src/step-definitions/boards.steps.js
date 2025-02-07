@@ -1,6 +1,6 @@
-require('./actions/login.actions');
-require('./actions/board.actions')
-require('./valitations/board.validations')
+require('./actions/login-trello.actions');
+require('./actions/board.actions');
+require('./validations/board.validations');
 // const LoginPage = require('../pageobjects/pages/login.page');
 // const Boards = require('../pageobjects/pages/boards.page');
 // const HomePage = require('../pageobjects/pages/home.page');
